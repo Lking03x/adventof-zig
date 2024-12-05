@@ -41,6 +41,8 @@ pub fn main() !void {
     defer allocator.free(input);
 
     const data = try fromText(input, allocator);
+    defer allocator.free(data.left);
+    defer allocator.free(data.right);
     // .........................................
 
     std.mem.sort(u32, data.left, void{}, lessThanFn);
