@@ -8,7 +8,6 @@ const Data = struct {
 
 fn fromText(text: []u8, allocator: std.mem.Allocator) !Data {
     const pairs_count = std.mem.count(u8, text, "\n");
-    // std.debug.print("pairs_count: {d}\n", .{pairs_count});
     const data = Data{
         .left = try allocator.alloc(u32, pairs_count),
         .right = try allocator.alloc(u32, pairs_count),
@@ -47,19 +46,26 @@ pub fn main() !void {
     std.mem.sort(u32, data.left, void{}, lessThanFn);
     std.mem.sort(u32, data.right, void{}, lessThanFn);
 
-    // std.debug.print(
-    //     "{any}\n",
-    //     .{data.left},
-    // );
     {
         var result: u32 = 0;
         for (data.left, data.right) |left, right| {
-            // var distance: i32 = @as(i32, @truncate(left)) - @as(i32, right);
             var distance: i32 = @intCast(left);
             distance -= @intCast(right);
             if (distance < 0) distance = -distance;
             result += @intCast(distance);
         }
         std.debug.print("Part 1: {d}\n", .{result});
+    }
+    {
+        // naive impl
+        var result: u32 = 0;
+        for (data.left) |l| {
+            var count: usize = 0;
+            for (data.right) |r| {
+                if (l == r) count += 1;
+            }
+            result += l * @as(u32, @intCast(count));
+        }
+        std.debug.print("Part 2: {d}\n", .{result});
     }
 }
