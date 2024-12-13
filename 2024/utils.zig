@@ -40,3 +40,11 @@ pub fn readInput(allocator: std.mem.Allocator, solutionSrcLoc: std.builtin.Sourc
     std.debug.assert(std.fs.path.isAbsolute(input_filepath));
     return readFile(allocator, input_filepath);
 }
+
+pub fn printPart1Result(result: usize) void {
+    std.debug.print("Part 1: {d}\n", .{result});
+}
+
+pub fn printPart2Result(result: usize) void {
+    std.debug.print("Part 2: {d}\n", .{result});
+}
