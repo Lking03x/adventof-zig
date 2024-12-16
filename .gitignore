@@ -2,4 +2,5 @@ zig-cache/
 .zig-cache/
 zig-out/
 
-*/inputs/
+2024/inputs/
+2024/thinkering_tmp/
