@@ -1,5 +1,9 @@
 const std = @import("std");
 
+const settings = struct {
+    var debug_print: bool = true;
+};
+
 pub fn readFile(allocator: std.mem.Allocator, absolute_path: []const u8) ![]u8 {
     const file = try std.fs.openFileAbsolute(absolute_path, .{});
     const stat = try file.stat();
@@ -47,4 +51,14 @@ pub fn printPart1Result(result: usize) void {
 
 pub fn printPart2Result(result: usize) void {
     std.debug.print("Part 2: {d}\n", .{result});
+}
+
+pub fn show_debug_print(flag: bool) void {
+    settings.debug_print = flag;
+}
+
+pub fn dbg(comptime fmt: []const u8, args: anytype) void {
+    if (settings.debug_print) {
+        std.debug.print(fmt, args);
+    }
 }
